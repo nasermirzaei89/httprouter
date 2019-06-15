@@ -9,6 +9,7 @@ type handler struct {
 	routes []route
 }
 
+// Handler interface
 type Handler interface {
 	http.Handler
 	Get(pattern string, handlerFunc http.HandlerFunc)
@@ -24,6 +25,7 @@ type route struct {
 	handlerFunc http.HandlerFunc
 }
 
+// New return a new handler implementation
 func New() Handler {
 	return &handler{
 		routes: []route{},

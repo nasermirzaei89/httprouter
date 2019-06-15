@@ -2,6 +2,8 @@
 Simple Golang HTTP Router
 
 [![Build Status](https://travis-ci.org/nasermirzaei89/httprouter.svg?branch=master)](https://travis-ci.org/nasermirzaei89/httprouter)
+[![Go Report Card](https://goreportcard.com/badge/github.com/nasermirzaei89/httprouter)](https://goreportcard.com/report/github.com/nasermirzaei89/httprouter)
+[![GitHub license](https://img.shields.io/github/license/nasermirzaei89/httprouter.svg)](https://github.com/nasermirzaei89/httprouter/blob/master/LICENSE)
 
 
 ## Sample
