@@ -1,6 +1,9 @@
 # HTTP Router
 Simple Golang HTTP Router
 
+[![Build Status](https://travis-ci.org/nasermirzaei89/httprouter.svg?branch=master)](https://travis-ci.org/nasermirzaei89/httprouter)
+
+
 ## Sample
 ```go
 package main

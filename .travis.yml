@@ -1,0 +1,13 @@
+language: go
+
+go:
+  - 1.12.x
+  - tip
+
+branches:
+  only:
+    - master
+
+script:
+  - go test ./...
+  - go build ./...
