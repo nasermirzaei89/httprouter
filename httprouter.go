@@ -1,6 +1,7 @@
 package httprouter
 
 import (
+	"context"
 	"net/http"
 	"regexp"
 )
@@ -38,6 +39,15 @@ func New() Handler {
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	for i := range h.routes {
 		if r.Method == h.routes[i].method && h.routes[i].pattern.MatchString(r.URL.Path) {
+			names := h.routes[i].pattern.SubexpNames()
+			values := h.routes[i].pattern.FindAllStringSubmatch(r.URL.Path, -1)
+			if len(values) > 0 {
+				for i, v := range values[0] {
+					if names[i] != "" {
+						r = r.WithContext(context.WithValue(r.Context(), names[i], v))
+					}
+				}
+			}
 			h.routes[i].handlerFunc(w, r)
 			return
 		}

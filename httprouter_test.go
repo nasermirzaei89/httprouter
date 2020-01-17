@@ -28,6 +28,32 @@ func TestHandler_ServeHTTP(t *testing.T) {
 	}
 }
 
+func TestHandler_ServeHTTPWithParams(t *testing.T) {
+	id := "54"
+	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("/items/%s", id), nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rec := httptest.NewRecorder()
+	h := New()
+
+	h.Get("^/items/(?P<id>[\\d]+)$", func(w http.ResponseWriter, r *http.Request) {
+		idParam := "id"
+		receivedID := r.Context().Value(idParam).(string)
+		if receivedID != id {
+			t.Errorf("expected receiving: '%s' got '%s'", id, receivedID)
+		}
+		w.WriteHeader(http.StatusOK)
+	})
+
+	h.ServeHTTP(rec, req)
+
+	if status := rec.Code; status != http.StatusOK {
+		t.Errorf("expected status code: '%d' got '%d'", http.StatusOK, status)
+	}
+}
+
 func BenchmarkHandler_ServeHTTP(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		req, err := http.NewRequest(http.MethodGet, "/ping", nil)
